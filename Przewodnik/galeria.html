@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galeria – Przewodnik sudecki Arkadiusz Wichniak</title>
+  <meta name="description" content="Galeria zdjęć z wycieczek po Sudetach i Czechach z przewodnikiem Arkadiuszem Wichniakiem. Zobacz piękno górskich szlaków." />
+  <meta name="author" content="Arkadiusz Wichniak" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+      cursor: pointer;
+    }
+
+    .gallery-item img.loaded {
+      opacity: 1;
+    }
+
+    .slider {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      flex-direction: column;
+    }
+
+    .slider img {
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 10px;
+    }
+
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 48px;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .slider-prev {
+      left: 30px;
+    }
+
+    .slider-next {
+      right: 30px;
+    }
+
+    .slider-close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 36px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Górny pasek -->
+  <header class="top-header">
+    <div class="header-container">
+      <h1>Przewodnik sudecki</h1>
+      <div class="phone">
+        <a class="phone-link" href="tel:601883561">Telefon: 601 883 561</a>
+        <a href="https://www.facebook.com/awichniak" target="_blank">
+          <img class="facebook-icon" src="img/facebook.svg" alt="" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Nawigacja -->
+  <nav>
+    <ul class="nav-bar">
+      <li><a href="index.html">Strona główna</a></li>
+      <li><a href="omnie.html">O mnie</a></li>
+      <li><a href="wycieczki.html">Wycieczki po Sudetach</a></li>
+      <li><a href="wycieczkipoczechach.html">Wycieczki po Czechach</a></li>
+      <li><a href="cennik.html">Cennik</a></li>
+      <li><a href="oferta.html">Oferta</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <!-- Galeria -->
+  <main class="gallery-page">
+    <h2>Galeria z wycieczek</h2>
+    <p class="gallery-intro">Zobacz zdjęcia z górskich wypraw po Sudetach i Czechach.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="img/galeria/galeria1.jpg" alt="" loading="lazy" aria-hidden="true" /></div>
+      <div class="gallery-item"><img src="img/galeria/galeria2.jpg" alt="" loading="lazy" aria-hidden="true" /></div>
+      <div class="gallery-item"><img src="img/galeria/galeria3.jpg" alt="" loading="lazy" aria-hidden="true" /></div>
+      <div class="gallery-item"><img src="img/galeria/galeria4.jpg" alt="" loading="lazy" aria-hidden="true" /></div>
+      <div class="gallery-item"><img src="img/galeria/galeria5.jpg" alt="" loading="lazy" aria-hidden="true" /></div>
+    </div>
+  </main>
+
+  <!-- Slider -->
+  <div class="slider" id="slider">
+    <span class="slider-close" id="sliderClose">&times;</span>
+    <span class="slider-nav slider-prev" id="sliderPrev">&#10094;</span>
+    <img id="sliderImg" src="" alt="Zdjęcie w pełnym rozmiarze" />
+    <span class="slider-nav slider-next" id="sliderNext">&#10095;</span>
+  </div>
+
+  <!-- Stopka -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>KONTAKT</h4>
+        <p>
+          Przewodnik sudecki<br />
+          Arkadiusz Wichniak<br />
+          <a class="phone-link" href="tel:601883561">tel. 601 883 561</a><br />
+          email: <a class="plain-link" href="mailto:mcwichniak@gmail.com">mcwichniak@gmail.com</a>
+        </p>
+      </div>
+
+      <div class="footer-column">
+        <h4>USŁUGI</h4>
+        <ul>
+          <li><a href="wycieczki.html">Wycieczki po Sudetach</a></li>
+          <li><a href="wycieczkipoczechach.html">Wycieczki po Czechach</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>MENU</h4>
+        <ul>
+          <li><a href="omnie.html">O mnie</a></li>
+          <li><a href="cennik.html">Cennik</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>
+        Danuta Chajewska – wszelkie prawa zastrzeżone |
+        <a href="polityka.html">Polityka prywatności</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Skrypt -->
+  <script>
+    const galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
+    const slider = document.getElementById('slider');
+    const sliderImg = document.getElementById('sliderImg');
+    const sliderClose = document.getElementById('sliderClose');
+    const sliderNext = document.getElementById('sliderNext');
+    const sliderPrev = document.getElementById('sliderPrev');
+    let currentIndex = 0;
+
+    galleryImages.forEach((img, index) => {
+      img.addEventListener('click', () => {
+        currentIndex = index;
+        showSliderImage();
+        slider.style.display = 'flex';
+      });
+
+      img.addEventListener('load', () => {
+        img.classList.add('loaded');
+      });
+
+      if (img.complete) {
+        img.classList.add('loaded');
+      }
+    });
+
+    function showSliderImage() {
+      sliderImg.src = galleryImages[currentIndex].src;
+    }
+
+    sliderClose.addEventListener('click', () => {
+      slider.style.display = 'none';
+    });
+
+    sliderNext.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % galleryImages.length;
+      showSliderImage();
+    });
+
+    sliderPrev.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+      showSliderImage();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (slider.style.display === 'flex') {
+        if (e.key === 'ArrowRight') sliderNext.click();
+        if (e.key === 'ArrowLeft') sliderPrev.click();
+        if (e.key === 'Escape') sliderClose.click();
+      }
+    });
+  </script>
+
+</body>
+</html>
